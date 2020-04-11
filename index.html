@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css" />
+    <title>Blackjack Project for CodeWorks</title>
+    <meta charset="utf-8" />
+  </head>
+
+  <body>
+    <h1 id="title">BlackJack Project for CodeWorks</h1>
+    <h4>by Padraig O'Donoghue</h4>
+
+    <div id="text-area">
+      <p>Welcome to my little Blackjack application!</p>
+      <p>
+        It won't fool anyone into thinking they're in Las Vegas, it doesn't even
+        contain most of the features you'd expect, it's just a simple project to
+        illustrate my learning and progression in web development.
+      </p>
+      <p>
+        The rules are simple; hit 'New Game' to play, 'Hit' to get another card
+        and 'Stand' to let the Dealer take over. Remember, you're playing to
+        beat the dealer without exceeding 21.
+      </p>
+      <p>Good luck!</p>
+    </div>
+
+    <h3 class="card-title">Dealer's Cards</h3>
+    <h3 class="dealer-wins">Win Count: 0</h3>
+    <div id="deal-cards"></div>
+
+    <h3 class="card-title">Player's Cards</h3>
+    <h3 class="player-wins">Win Count: 0</h3>
+    <div id="play-cards"></div>
+
+    <br />
+
+    <button id="new-game-button">New Game</button>
+    <button id="hit-button">Hit!</button>
+    <button id="stand-button">Stand</button>
+
+    <script src="blackJack.js"></script>
+  </body>
+</html>

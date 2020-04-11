@@ -1,0 +1,33 @@
+body {
+  background: grey;
+  padding: 2em;
+}
+
+#text-area {
+  background: #dfede9;
+  padding: 2em;
+}
+
+#deal-cards {
+  background: #287b59;
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+}
+
+#play-cards {
+  background: #287b59;
+  display: flex;
+  flex-direction: row;
+  padding: 1em;
+}
+
+.display-score {
+  font-size: 20px;
+  text-decoration: underline;
+  align-content: right;
+}
+
+.display-cards {
+  font-size: 40px;
+}
