@@ -2,26 +2,85 @@
 let suits = ["spades", "diamonds", "clubs", "hearts"];
 let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 let ranks = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10];
+let display = [];
+display[0] = "SVGs/Spades_1_A.svg";
+display[1] = "SVGs/Spades_2.svg";
+display[2] = "SVGs/Spades_3.svg";
+display[3] = "SVGs/Spades_4.svg";
+display[4] = "SVGs/Spades_5.svg";
+display[5] = "SVGs/Spades_6.svg";
+display[6] = "SVGs/Spades_7.svg";
+display[7] = "SVGs/Spades_8.svg";
+display[8] = "SVGs/Spades_9.svg";
+display[9] = "SVGs/Spades_10.svg";
+display[10] = "SVGs/Spades_11.svg";
+display[11] = "SVGs/Spades_12.svg";
+display[12] = "SVGs/Spades_13.svg";
+display[13] = "SVGs/Diam_1_A.svg";
+display[14] = "SVGs/Diam_2.svg";
+display[15] = "SVGs/Diam_3.svg";
+display[16] = "SVGs/Diam_4.svg";
+display[17] = "SVGs/Diam_5.svg";
+display[18] = "SVGs/Diam_6.svg";
+display[19] = "SVGs/Diam_7.svg";
+display[20] = "SVGs/Diam_8.svg";
+display[21] = "SVGs/Diam_9.svg";
+display[22] = "SVGs/Diam_10.svg";
+display[23] = "SVGs/Diam_11.svg";
+display[24] = "SVGs/Diam_12.svg";
+display[25] = "SVGs/Diam_13.svg";
+display[26] = "SVGs/Clubs_1_A.svg";
+display[27] = "SVGs/Clubs_2.svg";
+display[28] = "SVGs/Clubs_3.svg";
+display[29] = "SVGs/Clubs_4.svg";
+display[30] = "SVGs/Clubs_5.svg";
+display[31] = "SVGs/Clubs_6.svg";
+display[32] = "SVGs/Clubs_7.svg";
+display[33] = "SVGs/Clubs_8.svg";
+display[34] = "SVGs/Clubs_9.svg";
+display[35] = "SVGs/Clubs_10.svg";
+display[36] = "SVGs/Clubs_11.svg";
+display[37] = "SVGs/Clubs_12.svg";
+display[38] = "SVGs/Clubs_13.svg";
+display[39] = "SVGs/Hearts_1_A.svg";
+display[40] = "SVGs/Hearts_2.svg";
+display[41] = "SVGs/Hearts_3.svg";
+display[42] = "SVGs/Hearts_4.svg";
+display[43] = "SVGs/Hearts_5.svg";
+display[44] = "SVGs/Hearts_6.svg";
+display[45] = "SVGs/Hearts_7.svg";
+display[46] = "SVGs/Hearts_8.svg";
+display[47] = "SVGs/Hearts_9.svg";
+display[48] = "SVGs/Hearts_10.svg";
+display[49] = "SVGs/Hearts_11.svg";
+display[50] = "SVGs/Hearts_12.svg";
+display[51] = "SVGs/Hearts_13.svg";
 // global declaration of players; player & dealer
 
 let player = {
   cards: [],
   displayHand: [],
   score: 0,
-  aceCount: 0
+  aceCount: 0,
 };
 
 let dealer = {
   cards: [],
   displayHand: [],
   score: 0,
-  aceCount: 0
+  aceCount: 0,
 };
 
 // Global deck array creation
 var deck = [];
+getDeck();
+shuffle();
 
-// DOM Variables
+// DOM  Target Variables
+var dealScore = document.getElementsByClassName("deal-score");
+var playScore = document.getElementsByClassName("play-score");
+
+// Buttons
 var newGameButton = document.getElementById("new-game-button"),
   hitButton = document.getElementById("hit-button"),
   standButton = document.getElementById("stand-button");
@@ -41,7 +100,6 @@ function hitPlayer() {
 }
 
 function newGameButtonClick() {
-  resetGame();
   startGame();
   enableAllButtons();
   document.getElementById("new-game-button").disabled = true;
@@ -65,6 +123,7 @@ function enableAllButtons() {
   document.getElementById("stand-button").disabled = false;
 }
 
+// Dealer gets card
 function hitDealer() {
   hit = deck.shift();
   dealer.cards.push(hit);
@@ -74,13 +133,20 @@ function hitDealer() {
 }
 
 // Game Functions - Create, shuffle and deal deck
-// getDeck fills an array with cards
+// getDeck fills the deck array with cards
 function getDeck() {
   for (let s = 0; s < suits.length; s++) {
     for (let v = 0; v < values.length; v++) {
-      var card = { Value: values[v], Suit: suits[s], Rank: ranks[v] };
+      var card = {
+        Value: values[v],
+        Suit: suits[s],
+        Rank: ranks[v],
+      };
       deck.push(card);
     }
+  }
+  for (let d = 0; d < deck.length; d++) {
+    deck[d].Display = display[d];
   }
 }
 // counts remaining cards in the deck
@@ -103,14 +169,60 @@ function shuffle() {
     deck[i] = temp;
   }
 }
-//  Deals 4 first cards off top to both players
+//  Deals 4 first cards off top to both players - Only done once at start of game.
 function deal() {
-  player.cards.push(deck.shift());
-  dealer.cards.push(deck.shift());
-  player.cards.push(deck.shift());
-  dealer.cards.push(deck.shift());
+  // player.cards.push(deck.shift());
+  // dealer.cards.push(deck.shift());
+  // player.cards.push(deck.shift());
+  // dealer.cards.push(deck.shift());
+  hitPlayer();
+  hitDealer();
+  hitPlayer();
+  hitDealer();
+  svgAdd();
 }
 
+// Will add both Dealer and Player cards to the DOM
+function svgAdd() {
+  //get elements
+  var dealerDisplay = document.getElementById("deal-cards");
+  var playerDisplay = document.getElementById("play-cards");
+  // create loops
+  var playHand = player.cards;
+  var dealHand = dealer.cards;
+  for (let x = 0; x < playHand.length; x++) {
+    const element = playHand[x].Display;
+    var pic = document.createElement("img"); // Create a <p> element
+    pic.src = element; // Insert text
+    playerDisplay.appendChild(pic); // Append <p> to <body>
+  }
+  for (let x = 0; x < dealHand.length; x++) {
+    const element = dealHand[x].Display;
+    var pic = document.createElement("img"); // Create a <p> element
+    pic.src = element; // Insert text
+    dealerDisplay.appendChild(pic); // Append <p> to <body>
+  }
+}
+
+// Search DOM for all <img> and remove
+function svgClear() {
+  //get elements
+  var dealerDisplay = document.getElementById("deal-cards");
+  var playerDisplay = document.getElementById("play-cards");
+  while (dealerDisplay.hasChildNodes()) {
+    dealerDisplay.removeChild(dealerDisplay.firstChild);
+  }
+  while (playerDisplay.hasChildNodes()) {
+    playerDisplay.removeChild(playerDisplay.firstChild);
+  }
+}
+// Two functions together will clear board and add Card pictures
+function updateHandDisplay() {
+  svgClear();
+  svgAdd();
+}
+
+// Eval the hand
 function hand(obj) {
   obj.handScore = 0;
   let total = [];
@@ -143,7 +255,7 @@ function startGame() {
   deal();
   hand(player);
   hand(dealer);
-  updateUI();
+  svgAdd();
 }
 
 // Control Functions
@@ -156,22 +268,23 @@ function resetGame() {
   dealer.handScore = 0;
   player.displayHand = [];
   dealer.displayHand = [];
-  clearUI();
+  updateDisplay();
 }
 
 //Flow Statements
 
 //Display Functions
+// Redundant
 function clearUI() {
-  document.querySelectorAll(".display-score").forEach(function(a) {
+  document.querySelectorAll(".display-score").forEach(function (a) {
     a.remove();
-    document.querySelectorAll(".display-cards").forEach(function(a) {
+    document.querySelectorAll(".display-cards").forEach(function (a) {
       a.remove();
     });
   });
 }
 
-// Converts hand info to displayHand string
+// Converts hand info to displayHand string -- Redundant
 function handConvert(obj) {
   obj.displayHand = [];
   let converted = "";
@@ -192,7 +305,7 @@ function handConvert(obj) {
     obj.displayHand.push(converted);
   }
 }
-
+//Redundant DisplayFunction
 function displayPlayerCards() {
   for (let i = 0; i < player.displayHand.length; i++) {
     var newCard = document.createElement("p");
@@ -218,7 +331,7 @@ function displayPlayerCards() {
   newScore.innerHTML = scoreMessage;
   $("#play-cards").append(newScore);
 }
-
+//Redundant DisplayFunction
 function displayDealerCards() {
   for (let i = 0; i < dealer.displayHand.length; i++) {
     var newCard = document.createElement("p");
@@ -244,7 +357,7 @@ function displayDealerCards() {
   newScore.innerHTML = scoreMessage;
   $("#deal-cards").append(newScore);
 }
-
+// Redundant UI Function
 function updateUI() {
   clearUI();
   hand(dealer);
@@ -272,6 +385,7 @@ function checkScore() {
   }
 }
 
+// Figure out who won, print message to screen.
 function whoWon() {
   if (player.handScore > 21) {
     youLose();
@@ -289,8 +403,8 @@ function whoWon() {
 function youWin() {
   document.getElementById("stand-button").disabled = true;
   document.getElementById("new-game-button").disabled = true;
-  var message = `You won!! Your ${player.handScore} beat the dealer's ${dealer.handScore}! `;
-  document.querySelectorAll(".display-score").forEach(function(a) {
+  var message = `You won!! Your ${player.handScore} beat the dealer' ${dealer.handScore}! `;
+  document.querySelectorAll(".display-score").forEach(function (a) {
     a.remove();
   });
   var newScore = document.createElement("p");
@@ -309,8 +423,8 @@ function youWin() {
 function youLose() {
   document.getElementById("stand-button").disabled = true;
   document.getElementById("new-game-button").disabled = true;
-  let message = `You lose!! Your ${player.handScore} lost to the dealer's ${dealer.handScore}! `;
-  document.querySelectorAll(".display-score").forEach(function(a) {
+  let message = `You lose!! Your ${player.handScore} lost to the dealer' ${dealer.handScore}! `;
+  document.querySelectorAll(".display-score").forEach(function (a) {
     a.remove();
   });
   let newScore = document.createElement("p");
@@ -329,8 +443,8 @@ function youLose() {
 function youTied() {
   document.getElementById("stand-button").disabled = true;
   document.getElementById("new-game-button").disabled = true;
-  let message = `A Tie? You both had ${player.handScore}, you're both losers!! `;
-  document.querySelectorAll(".display-score").forEach(function(a) {
+  let message = `A Tie? You both had ${player.handScore}, you'e both losers!! `;
+  document.querySelectorAll(".display-score").forEach(function (a) {
     a.remove();
   });
   let again = document.createElement("p");

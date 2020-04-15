@@ -3,6 +3,25 @@ body {
   padding: 2em;
 }
 
+.grid-container {
+  display: grid;
+}
+
+.head-flex {
+  display: flex;
+  flex: 0 0 12em;
+}
+
+.button {
+  color: crimson;
+}
+
+.dealer-wins {
+}
+
+.player-wins {
+}
+
 #text-area {
   background: #dfede9;
   padding: 2em;
@@ -30,4 +49,9 @@ body {
 
 .display-cards {
   font-size: 40px;
+}
+
+img {
+  max-width: 100%;
+  height: 125px;
 }
