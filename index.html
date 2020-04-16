@@ -27,17 +27,15 @@
 
     <div class="grid-container">
       <div class="head-flex">
-        <h3 class="deal-score">Dealer's Hand:</h3>
-        <h3 class="dealer-wins">Win Count: 0</h3>
+        <h3 id="deal-score">Dealer's Hand Value:</h3>
       </div>
       <div id="deal-cards"></div>
 
-      <div id="message-box"></div>
+      <div id="message-box">.</div>
 
       <div id="play-cards"></div>
       <div class="head-flex">
-        <h3 class="play-score">Player's Hand:</h3>
-        <h3 class="player-wins">Win Count: 0</h3>
+        <h3 id="play-score">Player's Hand Value:</h3>
       </div>
     </div>
     <br />
@@ -45,6 +43,7 @@
     <button class="button" id="new-game-button">New Game</button>
     <button class="button" id="hit-button">Hit!</button>
     <button class="button" id="stand-button">Stand</button>
+    <button class="button" id="reset-button">Reset!</button>
 
     <script src="blackJack.js"></script>
   </body>

@@ -16,10 +16,10 @@ body {
   color: crimson;
 }
 
-.dealer-wins {
-}
-
-.player-wins {
+#message-box {
+  background-color: darkgrey;
+  color: black;
+  font-size: larger;
 }
 
 #text-area {
